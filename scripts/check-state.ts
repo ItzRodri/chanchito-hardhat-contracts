@@ -1,9 +1,9 @@
 import { network } from 'hardhat';
 import { formatUnits } from 'viem';
 
-const FACTORY = '0x9a71064c0d783b4590056746105146334ae36963';
+const FACTORY = '0x6057180c135760421085621d24c4ef53d4eb65be';
 const APP = '0xE9C325C8f318cC62F550A0E95A1b99D91b318D79';
-const USDT = '0xaA8E23Fb1079EA71e0a56F48a2aA51851D8433D0';
+const USDT = '0xd077a400968890eacc75cdc901f0356c943e4fdb';
 const erc20 = [{ type: 'function', name: 'balanceOf', inputs: [{ type: 'address' }], outputs: [{ type: 'uint256' }], stateMutability: 'view' }] as const;
 const u = (v: bigint) => `$${formatUnits(v, 6)}`;
 

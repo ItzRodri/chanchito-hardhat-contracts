@@ -1,5 +1,21 @@
 # Desplegado en Sepolia (chain 11155111)
 
+## En uso (integración con WDK gasless)
+
+| Contrato | Dirección |
+| --- | --- |
+| PoolFactory | `0x6057180c135760421085621d24c4ef53d4eb65be` |
+| SocialRegistry | `0xaaac417114ff2429fb722da93179702f64417fcd` |
+| PoolFactory sobre Aave | `0x310eac3c37e3dd690936b3df45d9fdea7a912ac6` |
+| USD₮ | `0xd077a400968890eacc75cdc901f0356c943e4fdb` |
+
+El token es el **USD₮ del paymaster de Candide**, no el de Aave. Tiene que ser
+el mismo con el que se cobra el gas: si el chanchito guardara un token y la
+comisión se pagara en otro, el usuario necesitaría dos saldos. Se consigue en
+el faucet del dashboard de Candide.
+
+## Despliegues anteriores
+
 Cuenta de deploy: `0x22F75Ede8C9A8EE4747F91F9D4a54CebF3BF814e`
 
 ## Fábricas

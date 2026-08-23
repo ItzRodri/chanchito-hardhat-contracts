@@ -24,6 +24,17 @@ const AAVE_SEPOLIA = {
   aUsdt: '0xAF0F6e8b0Dc5c913bbF4d14c22B4E78Dd14310B6',
 } as const;
 
+/**
+ * USD₮ de prueba del paymaster de Candide en Sepolia.
+ *
+ * Es un token DISTINTO del USDT de Aave. Se usa éste porque tiene que ser el
+ * mismo con el que el paymaster cobra el gas: si el chanchito guardara un token
+ * y las comisiones se pagaran en otro, el usuario necesitaría dos saldos.
+ *
+ * Se consigue en el faucet del dashboard de Candide.
+ */
+const CANDIDE_USDT = '0xd077a400968890eacc75cdc901f0356c943e4fdb';
+
 /** Comisión sobre la ganancia resignada al salir antes: 10%. */
 const EXIT_FEE_BPS = 1000n;
 /** Tasa que reporta el adapter de demo, sólo cosmética. */
@@ -50,13 +61,15 @@ async function main() {
     EXIT_FEE_BPS,
   ]);
 
-  // --- fábrica de demo, sin protocolo detrás ---
+  // --- fábrica de demo sobre el USD₮ del paymaster ---
+  // El rendimiento es simulado porque el tope de depósito de USDT en Aave
+  // Sepolia está agotado (ver DEPLOYMENTS.md).
   const mockAdapterFactory = await viem.deployContract('MockYieldAdapterFactory', [
-    AAVE_SEPOLIA.usdt,
+    CANDIDE_USDT,
     DEMO_APR_BPS,
   ]);
   const demoFactory = await viem.deployContract('PoolFactory', [
-    AAVE_SEPOLIA.usdt,
+    CANDIDE_USDT,
     mockAdapterFactory.address,
     feeRecipient,
     EXIT_FEE_BPS,
@@ -67,7 +80,7 @@ async function main() {
 
   console.log('\n--- Pegar en el .env de la app ---\n');
   console.log(`EXPO_PUBLIC_CHAIN_ID=11155111`);
-  console.log(`EXPO_PUBLIC_USDT_ADDRESS=${AAVE_SEPOLIA.usdt}`);
+  console.log(`EXPO_PUBLIC_USDT_ADDRESS=${CANDIDE_USDT}`);
   console.log(`EXPO_PUBLIC_POOL_FACTORY_ADDRESS=${aaveFactory.address}`);
   console.log(`EXPO_PUBLIC_DEMO_FACTORY_ADDRESS=${demoFactory.address}`);
   console.log(`EXPO_PUBLIC_SOCIAL_REGISTRY_ADDRESS=${social.address}`);
